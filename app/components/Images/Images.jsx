@@ -10,11 +10,18 @@ import { v4 as uuidv4 } from "uuid";
 
 const Images = () => {
   const [images, setImages] = useState(ImageData);
+  const [count, setIsCount] = useState(0);
+
   return (
-    <Box sx={{ width: "100%" }}>
-      <Grid container rowSpacing={3} columnSpacing={{ xs: 1, sm: 2, md: 4 }}>
+    <Box maxWidth="xl">
+      <Typography>{count}</Typography>
+      <Grid container spacing={2}>
         {images.map((img) => {
-          return <ImageCard key={uuidv4()} img={img} />;
+          return (
+            <Grid item md={2} key={uuidv4()}>
+              <ImageCard img={img} count={count} setIsCount={setIsCount} />
+            </Grid>
+          );
         })}
       </Grid>
     </Box>
