@@ -6,7 +6,7 @@ import { useState } from "react";
 import ImageData from "../ImageData";
 import ImageCard from "../ImageCard/ImageCard";
 import { v4 as uuidv4 } from "uuid";
-import { Typography } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import { Card, Checkbox, Paper } from "@mui/material";
 
 const Images = () => {
@@ -16,20 +16,24 @@ const Images = () => {
 
   const handleCheckboxChange = (i) => {
     const updatedImages = [...images];
-    // Toggle the checked state of the clicked card
     updatedImages[i].checked = !updatedImages[i].checked;
 
-    // Update the count based on the checked state of all cards
     const newCount = updatedImages.filter((img) => img.checked).length;
     setIsCount(newCount);
 
-    // Update the images state to reflect the changes
     setImages(updatedImages);
+  };
+
+  const handleDeleteSelected = () => {
+    const updatedImages = images.filter((img) => !img.checked);
+    setImages(updatedImages);
+    setIsCount(0);
   };
 
   return (
     <Box maxWidth="xl">
       <Typography>{count}</Typography>
+      <Button onClick={handleDeleteSelected}>Delete Selected</Button>
       <Grid container spacing={2}>
         {images.map((img, i) => {
           return (
